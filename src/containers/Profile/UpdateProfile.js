@@ -13,10 +13,18 @@ const UpdateProfile = props => {
     type: '',
   });
 
-  useEffect(() => setUpdateData(props.userData), [props.userData]);
+  useEffect(() => setUpdateData(props.userData), [props.userData, alert]);
 
   const handleChange = e => {
     setUpdateData({ ...updateData, [e.target.name]: e.target.value });
+  };
+
+  const handleError = status => {
+    if (status === 400) {
+      setAlert({ message: 'Введено невірні дані', type: 'danger' });
+    } else {
+      setAlert({ message: 'Виникла помилка', type: 'danger' });
+    }
   };
 
   const handleUserUpdate = e => {
@@ -26,8 +34,8 @@ const UpdateProfile = props => {
         props.updateComponent();
         setAlert({ message: 'Успішно відредаговано', type: 'success' });
       })
-      .catch(() => {
-        setAlert({ message: 'Виникла помилка', type: 'danger' });
+      .catch(error => {
+        handleError(error.response.status);
       });
   };
 

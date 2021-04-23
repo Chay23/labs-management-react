@@ -1,5 +1,5 @@
 import styles from './Profile.module.scss';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { changePassword } from './ProfileService';
 import Modal from '../../components/Modal/Modal';
 
@@ -41,20 +41,24 @@ const ChangePassword = props => {
       changePassword(data)
         .then(response => {
           setAlert({ message: 'Успішно змінено', type: 'success' });
-          flushData();
+          clearData();
         })
         .catch(error => {
           setAlert({
-            message: 'Виникла помилка при зміні паролю, повторіть пізніше',
+            message: 'Виникла помилка. Спробуйте пізніше',
             type: 'danger',
           });
-          setPasswordData(prevData => ({
-            current_password: prevData.current_password,
-            new_password: '',
-            new_password_confirm: '',
-          }));
+          clearData();
         });
     }
+  };
+
+  const clearData = () => {
+    setPasswordData(prevData => ({
+      current_password: prevData.current_password,
+      new_password: '',
+      new_password_confirm: '',
+    }));
   };
 
   const flushData = () => {
@@ -86,6 +90,7 @@ const ChangePassword = props => {
           type='password'
           className='form-control'
           name='current_password'
+          value={passswordData.current_password}
           onChange={handleChange}
         ></input>
         <p>Новий пароль</p>
@@ -93,6 +98,7 @@ const ChangePassword = props => {
           type='password'
           className='form-control'
           name='new_password'
+          value={passswordData.new_password}
           onChange={handleChange}
         ></input>
         <p>Підтвердження нового паролю</p>
@@ -100,6 +106,7 @@ const ChangePassword = props => {
           type='password'
           className='form-control'
           name='new_password_confirm'
+          value={passswordData.new_password_confirm}
           onChange={handleChange}
         ></input>
         <button className='btn btn-success' onClick={handlePasswordChange}>

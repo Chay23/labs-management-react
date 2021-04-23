@@ -13,6 +13,10 @@ const Login = () => {
   });
   const [show, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [alert, setAlert] = useState({
+    message: '',
+    type: '',
+  });
 
   const handleChange = e => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -25,6 +29,20 @@ const Login = () => {
     });
   };
 
+  const handleError = status => {
+    if (status === 400) {
+      setAlert({
+        message: 'Невірна електронна пошта або невірний пароль',
+        type: 'danger',
+      });
+    } else {
+      setAlert({
+        message: 'Виникла помилка. Спробуйте пізніше',
+        type: 'danger',
+      });
+    }
+  };
+
   const handleSubmit = async e => {
     e.preventDefault();
     setLoading(true);
@@ -35,15 +53,16 @@ const Login = () => {
     await axios
       .post(baseUrl + '/auth/token/login/', data)
       .then(response => {
-        setLoading(false);
         const token = response.data.auth_token;
         document.cookie = `token=${token}; path=/`;
         handleUserId();
+        setLoading(false);
         <Redirect to='/profile' />;
       })
       .catch(error => {
         setLoading(false);
         setFormData({ ...formData, password: '' });
+        handleError(error.response.status);
       });
   };
 
@@ -53,6 +72,11 @@ const Login = () => {
 
   return (
     <div className={styles.content}>
+      {alert.message ? (
+        <div className={'alert alert-' + alert.type} role='alert'>
+          {alert.message}
+        </div>
+      ) : null}
       <h1>Вхід</h1>
       <form onSubmit={handleSubmit}>
         <input
