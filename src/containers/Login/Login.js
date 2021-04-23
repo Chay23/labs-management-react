@@ -1,9 +1,10 @@
 import styles from './Login.module.scss';
 import { useState } from 'react';
-import {Redirect} from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 import { baseUrl } from '../../config';
 import Spinner from '../../components/Spinner/Spinner';
+import customAxios from '../../customAxios';
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -15,6 +16,13 @@ const Login = () => {
 
   const handleChange = e => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleUserId = async () => {
+    customAxios.get('/auth/users/me').then(response => {
+      let id = response.data.id;
+      document.cookie = `user_id=${id}; path=/`;
+    });
   };
 
   const handleSubmit = async e => {
@@ -30,7 +38,8 @@ const Login = () => {
         setLoading(false);
         const token = response.data.auth_token;
         document.cookie = `token=${token}; path=/`;
-        <Redirect to='/profile'/>
+        handleUserId();
+        <Redirect to='/profile' />;
       })
       .catch(error => {
         setLoading(false);

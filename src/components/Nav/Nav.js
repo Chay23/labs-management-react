@@ -5,17 +5,19 @@ import { isAuthenticated } from './NavService';
 const Nav = () => {
   let innerContent = null;
   if (isAuthenticated()) {
-    <>
-      <NavLink activeClassName={styles.activeLink} to='/profile'>
-        Профіль
-      </NavLink>
-      <NavLink activeClassName={styles.activeLink} to='/lectures'>
-        Лекції
-      </NavLink>
-      <NavLink activeClassName={styles.activeLink} to='/assignments'>
-        Завдання
-      </NavLink>
-    </>;
+    innerContent = (
+      <>
+        <NavLink activeClassName={styles.activeLink} to='/profile'>
+          Профіль
+        </NavLink>
+        <NavLink activeClassName={styles.activeLink} to='/lectures'>
+          Лекції
+        </NavLink>
+        <NavLink activeClassName={styles.activeLink} to='/assignments'>
+          Завдання
+        </NavLink>
+      </>
+    );
   } else {
     innerContent = (
       <>
