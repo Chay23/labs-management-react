@@ -1,10 +1,8 @@
 import styles from './Login.module.scss';
 import { useState } from 'react';
 import { Redirect } from 'react-router-dom';
-import axios from 'axios';
-import { baseUrl } from '../../config';
+import { login } from './LoginService';
 import Spinner from '../../components/Spinner/Spinner';
-import customAxios from '../../customAxios';
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -22,20 +20,15 @@ const Login = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleUserId = async () => {
-    customAxios.get('/auth/users/me').then(response => {
-      let id = response.data.id;
-      document.cookie = `user_id=${id}; path=/`;
-    });
-  };
-
-  const handleError = status => {
-    if (status === 400) {
-      setAlert({
-        message: 'Невірна електронна пошта або невірний пароль',
-        type: 'danger',
-      });
-    } else {
+  const handleError = error => {
+    if (error.response) {
+      if (error.response.status === 400) {
+        setAlert({
+          message: 'Невірна електронна пошта або невірний пароль',
+          type: 'danger',
+        });
+      }
+    } else if (error.request) {
       setAlert({
         message: 'Виникла помилка. Спробуйте пізніше',
         type: 'danger',
@@ -50,19 +43,15 @@ const Login = () => {
       email: formData.email,
       password: formData.password,
     };
-    await axios
-      .post(baseUrl + '/auth/token/login/', data)
+    login(data)
       .then(response => {
-        const token = response.data.auth_token;
-        document.cookie = `token=${token}; path=/`;
-        handleUserId();
         setLoading(false);
         <Redirect to='/profile' />;
       })
       .catch(error => {
-        setLoading(false);
         setFormData({ ...formData, password: '' });
-        handleError(error.response.status);
+        handleError(error);
+        setLoading(false);
       });
   };
 
@@ -82,12 +71,14 @@ const Login = () => {
         <input
           className='form-control'
           name='email'
+          value={formData.email}
           onChange={handleChange}
           placeholder='Електронна пошта'
         />
         <input
           className='form-control'
           name='password'
+          value={formData.password}
           type={show ? 'text' : 'password'}
           onChange={handleChange}
           placeholder='Пароль'
