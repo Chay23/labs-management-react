@@ -1,5 +1,5 @@
 import styles from './Profile.module.scss';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { changePassword } from './ProfileService';
 import Modal from '../../components/Modal/Modal';
 

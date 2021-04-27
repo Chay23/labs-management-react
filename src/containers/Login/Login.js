@@ -1,6 +1,6 @@
 import styles from './Login.module.scss';
 import { useState } from 'react';
-import { Redirect } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { login } from './LoginService';
 import Spinner from '../../components/Spinner/Spinner';
 
@@ -15,6 +15,7 @@ const Login = () => {
     message: '',
     type: '',
   });
+  let history = useHistory();
 
   const handleChange = e => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -46,7 +47,7 @@ const Login = () => {
     login(data)
       .then(response => {
         setLoading(false);
-        <Redirect to='/profile' />;
+        history.push('/subjects');
       })
       .catch(error => {
         setFormData({ ...formData, password: '' });

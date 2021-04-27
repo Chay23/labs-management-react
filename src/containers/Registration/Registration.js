@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { getGroups, register, setToken } from './RegistrationService';
 import Select from 'react-select';
 import Spinner from '../../components/Spinner/Spinner';
+import { useHistory } from 'react-router';
 
 const Registration = () => {
   const [formData, setFormData] = useState({
@@ -19,6 +20,7 @@ const Registration = () => {
     message: '',
     type: '',
   });
+  let history = useHistory();
 
   const handleChange = e => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -95,6 +97,7 @@ const Registration = () => {
     await register(formData)
       .then(() => {
         handleToken();
+        history.push('/subjects');
       })
       .catch(error => {
         handleShowError(error);
