@@ -1,7 +1,9 @@
 import styles from './Lectures.module.scss';
 import { Link } from 'react-router-dom';
+import { getCookie } from '../../guards/GetCookie';
 
-export const LecturesList = ({ lectures, subject_id }) => {
+export const LecturesList = ({ lectures }) => {
+  const subject_id = getCookie('subject_id');
   return (
     <>
       {lectures.length > 0 ? (

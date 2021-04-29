@@ -4,6 +4,5 @@ export const isAuthenticated = () => {
 };
 
 export const getSubjectId = () => {
-  // console.log(getCookie('subject_id '));
   return getCookie('subject_id');
 };

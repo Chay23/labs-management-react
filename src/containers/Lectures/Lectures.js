@@ -1,6 +1,10 @@
 import styles from './Lectures.module.scss';
 import { useEffect, useState } from 'react';
-import { getLectures, getSubjectTitle, verifySubjectId } from './LecturesService';
+import {
+  getLectures,
+  getSubjectTitle,
+  verifySubjectId,
+} from './LecturesService';
 import { LecturesList } from './LecturesList';
 import Spinner from '../../components/Spinner/Spinner';
 import { Link, useHistory } from 'react-router-dom';
@@ -16,21 +20,21 @@ const Lectures = () => {
   const history = useHistory();
 
   useEffect(() => {
-    if(verifySubjectId()){
-    setLoading(true);
-    getLectures()
-      .then(lectures => {
-        setLectures(lectures);
-        getSubjectTitle().then(title => setTitle(title));
-        setLoading(false);
-      })
-      .catch(() => {
-        handleShowAlert();
-        setLoading(false);
-      });
-    }else{
-        localStorage.setItem('msg', 'Виберіть будь ласка предмет');
-        history.push('/subjects')
+    if (verifySubjectId()) {
+      setLoading(true);
+      getLectures()
+        .then(lectures => {
+          setLectures(lectures);
+          getSubjectTitle().then(title => setTitle(title));
+          setLoading(false);
+        })
+        .catch(() => {
+          handleShowAlert();
+          setLoading(false);
+        });
+    } else {
+      localStorage.setItem('msg', 'Виберіть будь ласка предмет');
+      history.push('/subjects');
     }
   }, [history]);
 
@@ -41,7 +45,9 @@ const Lectures = () => {
   return (
     <>
       {loading ? (
-        <Spinner />
+        <div className={styles.loading}>
+          <Spinner />
+        </div>
       ) : (
         <div className={styles.content}>
           {alert ? (

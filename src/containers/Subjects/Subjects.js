@@ -41,7 +41,7 @@ const Subjects = () => {
   return (
     <>
       {loading ? (
-        <Spinner />
+        <div className={styles.loading}><Spinner /></div>
       ) : (
         <div className={styles.content}>
           {alert ? (

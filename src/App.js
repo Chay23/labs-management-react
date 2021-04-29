@@ -6,6 +6,7 @@ import Registration from './containers/Registration/Registration';
 import Profile from './containers/Profile/Profile';
 import Subjects from './containers/Subjects/Subjects';
 import Lectures from './containers/Lectures/Lectures';
+import Lecture from './containers/Lectures/Lecture/Lecture';
 
 function App() {
   return (
@@ -19,6 +20,11 @@ function App() {
           path='/subjects/:subject_id/lectures'
           exact
           component={Lectures}
+        />
+        <Route
+          path='/subjects/:subject_id/lectures/:lecture_id'
+          exact
+          component={Lecture}
         />
         <Redirect from='/' to='/login' />
       </Switch>
