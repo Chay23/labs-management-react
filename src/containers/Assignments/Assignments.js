@@ -1,31 +1,32 @@
-import styles from './Lecture.module.scss';
+import styles from './Assignments.module.scss';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router';
-import Spinner from '../../../components/Spinner/Spinner';
-import { getLecture } from './LectureService';
-import { Link } from 'react-router-dom';
+import Spinner from '../../components/Spinner/Spinner';
+import { getAssignments, getSubjectTitle } from './AssignmentsService';
+import AssignmentsList from './AssignmentsList';
+import { Link, useParams } from 'react-router-dom';
 
-const Lecture = () => {
-  const [lecture, setLecture] = useState({});
+const Assignments = () => {
+  const [assignments, setAssignments] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [subjectTitle, setSubjectTitle] = useState('');
   const [alert, setAlert] = useState({
     message: '',
     type: '',
   });
-  const { subject_id, lecture_id } = useParams();
 
   useEffect(() => {
     setLoading(true);
-    getLecture(lecture_id)
+    getAssignments()
       .then(response => {
-        setLecture(response.data);
+        setAssignments(response.data);
+        getSubjectTitle().then(title => setSubjectTitle(title));
         setLoading(false);
       })
       .catch(() => {
         handleShowAlert();
         setLoading(false);
       });
-  }, [lecture_id]);
+  }, []);
 
   const handleShowAlert = () => {
     setAlert({ message: 'Виникла помилка. Спробуйте пізніше', type: 'danger' });
@@ -46,20 +47,19 @@ const Lecture = () => {
           ) : null}
           <Link
             className={styles.customBtn + ' btn btn-outline-dark'}
-            to={`/subjects/${subject_id}/lectures`}
+            to='/subjects'
           >
             Назад
           </Link>
-          <h3>{lecture.title}</h3>
+          <h2>Список завдань: {subjectTitle}</h2>
           <hr />
-          <p
-            className={styles.lectureText}
-            dangerouslySetInnerHTML={{ __html: lecture.text }}
-          ></p>
+          <div className={styles.assignmentsList}>
+            <AssignmentsList assignments={assignments} />
+          </div>
         </div>
       )}
     </>
   );
 };
 
-export default Lecture;
+export default Assignments;

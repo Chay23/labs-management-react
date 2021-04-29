@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { setSubjectId } from './SubjectsService';
 
 export const SubjectsList = ({ subjects }) => {
-  console.log(subjects);
   return (
     <>
       {subjects.length > 0 ? (

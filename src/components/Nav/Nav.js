@@ -28,7 +28,10 @@ const Nav = () => {
         >
           Лекції
         </NavLink>
-        <NavLink activeClassName={styles.activeLink} to='/assignments'>
+        <NavLink
+          activeClassName={styles.activeLink}
+          to={`/subjects/${subjectId}/assignments`}
+        >
           Завдання
         </NavLink>
       </>
