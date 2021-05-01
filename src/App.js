@@ -8,6 +8,7 @@ import Subjects from './containers/Subjects/Subjects';
 import Lectures from './containers/Lectures/Lectures';
 import Lecture from './containers/Lectures/Lecture/Lecture';
 import Assignments from './containers/Assignments/Assignments';
+import Assignment from './containers/Assignments/Assignment/Assignment';
 
 function App() {
   return (
@@ -31,6 +32,11 @@ function App() {
           path='/subjects/:subject_id/assignments'
           exact
           component={Assignments}
+        />
+        <Route
+          path='/subjects/:subject_id/assignments/:assignment_id'
+          exact
+          component={Assignment}
         />
         <Redirect from='/' to='/login' />
       </Switch>

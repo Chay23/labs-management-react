@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import Spinner from '../../components/Spinner/Spinner';
 import { getAssignments, getSubjectTitle } from './AssignmentsService';
 import AssignmentsList from './AssignmentsList';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const Assignments = () => {
   const [assignments, setAssignments] = useState([]);
