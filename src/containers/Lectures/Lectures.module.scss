@@ -1,35 +1,27 @@
+@import '../../styles/global.scss';
+
 .loading {
-  margin-top: 200px;
+  @include loadingSpinner;
 }
 
 .content {
-  padding: 100px 300px 100px 300px;
+  @include globalMargin;
 }
 
 .lecturesList {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-gap: 5px;
+  @include menuListStyle;
 }
 
 .lectureItem {
-  border: 3px black solid;
-  border-radius: 5px;
-  padding: 10px 20px;
-  font-weight: bolder;
-  font-style: unset;
-  box-shadow: 5px 2px 5px black;
+  @include menuItemStyle;
 }
 
 .linkToLecture {
-  font-weight: lighter;
-  color: black;
+  @include menuLink;
 }
 
 .linkToLecture:hover {
-  color: black;
-  text-decoration: none;
-  font-weight: 700;
+  @include menuLinkHover;
 }
 
 .customBtn {

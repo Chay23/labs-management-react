@@ -1,5 +1,12 @@
+@import '../../styles//global.scss';
+
+.loading {
+  @include loadingSpinner;
+}
+
 .content {
-  margin: 100px 300px;
+  @include sectionStyle;
+  @include globalMargin;
 
   button {
     margin: 10px 20px 0 0;

@@ -1,9 +1,11 @@
+@import '../../../styles/global.scss';
+
 .loading {
   margin-top: 200px;
 }
 
 .content {
-  padding: 100px 300px 100px 300px;
+  @include globalMargin;
 }
 
 .customBtn {

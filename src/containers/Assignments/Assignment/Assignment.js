@@ -15,6 +15,8 @@ const Assignment = () => {
   const [language, setLanguage] = useState('javascript');
   const [sending, setSending] = useState(false);
   const [inputFile, setInputFile] = useState(null);
+  const [showEditor, setShowEditor] = useState(false);
+  const [showFileSection, setShowFileSection] = useState(false);
   const [useFile, setUseFile] = useState({
     input: false,
     editor: false,
@@ -148,6 +150,14 @@ const Assignment = () => {
       });
   };
 
+  const handleShowEditor = () => {
+    setShowEditor(prevState => !prevState);
+  };
+
+  const handleShowFileSection = () => {
+    setShowFileSection(prevState => !prevState);
+  };
+
   return (
     <>
       {loading ? (
@@ -175,18 +185,37 @@ const Assignment = () => {
               dangerouslySetInnerHTML={{ __html: assignment.description }}
             ></p>
           </div>
-          <div className={styles.inputFileSection}>
+          <div
+            className={styles.inputFileSection}
+            style={{ height: showFileSection ? '160px' : '82px' }}
+          >
+            <i
+              className={`${styles.arrow} ${
+                showFileSection ? styles.up : styles.down
+              }`}
+              onClick={handleShowFileSection}
+            ></i>
             <h4>
               {useFile.input ? <div className={styles.circle}></div> : null}
               Завантажити файл (.js) (.ts) (.html) (.py) (.java)
             </h4>
             <input type='file' onChange={handleUseInputFile} />
           </div>
-          <div className={styles.editorSection}>
+          <div
+            className={styles.editorSection}
+            style={{ height: showEditor ? '1000px' : '80px' }}
+          >
+            <i
+              className={`${styles.arrow} ${
+                showEditor ? styles.up : styles.down
+              }`}
+              onClick={handleShowEditor}
+            ></i>
             <h4>
               {useFile.editor ? <div className={styles.circle}></div> : null}
               Написати код в редакторі
             </h4>
+
             <EditorComponent
               handleButtonChangeState={handleButtonChangeState}
               setEditorRef={setEditorRef}

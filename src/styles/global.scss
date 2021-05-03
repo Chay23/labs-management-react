@@ -1,0 +1,44 @@
+$sectionColor: rgb(236, 236, 236);
+
+@mixin globalMargin {
+  margin: 100px 300px;
+}
+
+@mixin sectionStyle {
+  background-color: $sectionColor;
+  box-sizing: border-box;
+  padding: 20px;
+  border: 1px solid black;
+  border-radius: 5px;
+  box-shadow: 5px 2px 5px black;
+}
+
+@mixin menuListStyle {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 5px;
+}
+
+@mixin menuItemStyle {
+  border: 3px black solid;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-weight: bolder;
+  font-style: unset;
+  box-shadow: 5px 2px 5px black;
+}
+
+@mixin menuLink {
+  font-weight: lighter;
+  color: black;
+}
+
+@mixin menuLinkHover {
+  color: black;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+@mixin loadingSpinner {
+  margin-top: 200px;
+}

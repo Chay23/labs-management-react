@@ -43,11 +43,13 @@ const Profile = () => {
   };
 
   return (
-    <div className={styles.content}>
+    <>
       {loading ? (
-        <Spinner />
+        <div className={styles.loading}>
+          <Spinner />
+        </div>
       ) : (
-        <>
+        <div className={styles.content}>
           <p>Електронна скринька: {profileData.email}</p>
           <p>Ім'я: {profileData.first_name}</p>
           <p>Прізвище: {profileData.last_name}</p>
@@ -64,20 +66,22 @@ const Profile = () => {
           >
             Змінити пароль
           </button>
-        </>
+
+          <UpdateProfile
+            show={useUpdateModal}
+            handleModalShow={handleUpdateModalShow}
+            userData={profileData}
+            updateComponent={updateComponent}
+            onCancel={handleUpdateModalShow}
+          />
+          <ChangePassword
+            show={usePasswordChangeModal}
+            handleModalShow={handlePasswordChangeModalShow}
+            onCancel={handlePasswordChangeModalShow}
+          />
+        </div>
       )}
-      <UpdateProfile
-        show={useUpdateModal}
-        handleModalShow={handleUpdateModalShow}
-        userData={profileData}
-        updateComponent={updateComponent}
-      />
-      <ChangePassword
-        show={usePasswordChangeModal}
-        handleModalShow={handlePasswordChangeModalShow}
-        onCancel={handlePasswordChangeModalShow}
-      />
-    </div>
+    </>
   );
 };
 

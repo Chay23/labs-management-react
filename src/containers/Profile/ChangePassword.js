@@ -43,7 +43,7 @@ const ChangePassword = props => {
           setAlert({ message: 'Успішно змінено', type: 'success' });
           clearData();
         })
-        .catch(error => {
+        .catch(() => {
           setAlert({
             message: 'Виникла помилка. Спробуйте пізніше',
             type: 'danger',

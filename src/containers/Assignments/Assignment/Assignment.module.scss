@@ -1,9 +1,11 @@
+@import '../../../styles/global.scss';
+
 .loading {
-  margin-top: 200px;
+  @include loadingSpinner;
 }
 
 .content {
-  padding: 100px 300px 100px 300px;
+  @include globalMargin;
 
   label {
     margin: 10px 10px 20px 0;
@@ -50,23 +52,37 @@
 }
 
 .inputFileSection {
+  @include sectionStyle;
   overflow: hidden;
-  background-color: rgb(236, 236, 236);
-  box-sizing: border-box;
-  padding: 20px;
-  border: 1px solid black;
-  border-radius: 5px;
-  box-shadow: 5px 2px 5px black;
   margin: 10px 0;
+  transition: height 1s;
 }
 
 .editorSection {
+  @include sectionStyle;
   overflow: hidden;
-  background-color: rgb(236, 236, 236);
-  box-sizing: border-box;
-  padding: 20px;
-  border: 1px solid black;
-  border-radius: 5px;
-  box-shadow: 5px 2px 5px black;
   margin: 10px 0;
+  transition: height 2s;
+}
+
+.arrow {
+  border: solid black;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+  margin: 0 2px;
+}
+
+.arrow:hover {
+  cursor: pointer;
+}
+
+.up {
+  transform: rotate(-135deg);
+  -webkit-transform: rotate(-135deg);
+}
+
+.down {
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
 }
