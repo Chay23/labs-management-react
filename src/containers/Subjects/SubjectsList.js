@@ -7,15 +7,26 @@ export const SubjectsList = ({ subjects }) => {
     <>
       {subjects.length > 0 ? (
         subjects.map(subject => (
-          <h3 className={styles.subjectItem} key={subject.id}>
-            <Link
-              className={styles.linkToSubject}
-              to={`/subjects/${subject.id}/lectures`}
-              onClick={() => setSubjectId(subject.id)}
-            >
-              {subject.title}
-            </Link>
-          </h3>
+          <div className={styles.subjectItem} key={subject.id}>
+            <div className={styles.subjctTitle}>
+              <h3>
+                <Link
+                  className={styles.linkToSubject}
+                  to={`/subjects/${subject.id}/lectures`}
+                  onClick={() => setSubjectId(subject.id)}
+                >
+                  {subject.title}
+                </Link>
+              </h3>
+            </div>
+            <div className={`${styles.subjectDescription}`}>
+              <p>
+                Опис предмету
+                <i className={`${styles.arrow} ${styles.down}`}></i>
+              </p>
+              <p>{subject.description}</p>
+            </div>
+          </div>
         ))
       ) : (
         <p>Список порожній</p>

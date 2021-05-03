@@ -23,8 +23,6 @@ $sectionColor: rgb(236, 236, 236);
   border: 3px black solid;
   border-radius: 5px;
   padding: 10px 20px;
-  font-weight: bolder;
-  font-style: unset;
   box-shadow: 5px 2px 5px black;
 }
 
@@ -41,4 +39,26 @@ $sectionColor: rgb(236, 236, 236);
 
 @mixin loadingSpinner {
   margin-top: 200px;
+}
+
+@mixin arrow {
+  border: solid black;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+  margin: 0 2px;
+}
+
+@mixin arrowHover {
+  cursor: pointer;
+}
+
+@mixin arrowUp {
+  transform: rotate(-135deg);
+  -webkit-transform: rotate(-135deg);
+}
+
+@mixin arrowDown {
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
 }
