@@ -1,10 +1,9 @@
 import styles from './Registration.module.scss';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { getGroups, register, setToken } from './RegistrationService';
 import Select from 'react-select';
-import customAxios from '../../customAxios';
-import { baseUrl } from '../../config';
 import Spinner from '../../components/Spinner/Spinner';
+import { useHistory } from 'react-router';
 
 const Registration = () => {
   const [formData, setFormData] = useState({
@@ -17,6 +16,11 @@ const Registration = () => {
   });
   const [groups, setGroups] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [alert, setAlert] = useState({
+    message: '',
+    type: '',
+  });
+  let history = useHistory();
 
   const handleChange = e => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -32,15 +36,51 @@ const Registration = () => {
 
   useEffect(() => {
     async function fetchGroups() {
-      await customAxios.get('/groups/group-list').then(response => {
-        setGroups(response.data);
-      });
+      getGroups()
+        .then(response => {
+          setGroups(response.data);
+        })
+        .catch(error => {
+          handleShowError(error);
+        });
     }
     fetchGroups();
   }, []);
 
+  const handleShowError = error => {
+    if (error.response) {
+      if (error.response.status === 400) {
+        setAlert({
+          message: error.response.data.details,
+          type: 'danger',
+        });
+      }
+    } else if (error.request) {
+      setAlert({
+        message: 'Виникла помилка. Спробуйте пізніше',
+        type: 'danger',
+      });
+    }
+  };
+
   const confirmPassword = () => {
-    return formData.password === formData.passwordConfirm;
+    if (formData.password !== formData.passwordConfirm) {
+      setAlert({
+        message: 'Паролі не співпадають',
+        type: 'danger',
+      });
+      return false;
+    } else if (
+      formData.password.length < 8 &&
+      formData.passwordConfirm.length < 8
+    ) {
+      setAlert({
+        message: 'Пароль повинен містити не менше 8 символі',
+        type: 'danger',
+      });
+      return false;
+    }
+    return true;
   };
 
   const handleToken = async () => {
@@ -49,20 +89,20 @@ const Registration = () => {
       email: formData.email,
       password: formData.password,
     };
-    await axios.post(baseUrl + '/auth/token/login/', data).then(response => {
-      const token = response.data.auth_token;
-      document.cookie = `token=${token}; path=/`;
-      setLoading(false);
-      
-    });
+    setToken(data).catch(error => handleShowError(error));
   };
 
   const handleRegistration = async () => {
     setLoading(true);
-    await axios.post(baseUrl + '/create-profile/', formData).then(() => {
-      handleToken();
-      setLoading(false);
-    });
+    await register(formData)
+      .then(() => {
+        handleToken();
+        history.push('/subjects');
+      })
+      .catch(error => {
+        handleShowError(error);
+      });
+    setLoading(false);
   };
 
   const handleSubmit = async e => {
@@ -80,6 +120,11 @@ const Registration = () => {
 
   return (
     <div className={styles.content}>
+      {alert.message ? (
+        <div className={'alert alert-' + alert.type} role='alert'>
+          {alert.message}
+        </div>
+      ) : null}
       <h1>Реєстрація</h1>
       <form onSubmit={handleSubmit}>
         <p>Електронна пошта</p>

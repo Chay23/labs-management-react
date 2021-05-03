@@ -1,21 +1,41 @@
 import styles from './Nav.module.scss';
-import { NavLink } from 'react-router-dom';
-import { isAuthenticated } from './NavService';
+import { NavLink, useLocation } from 'react-router-dom';
+import { isAuthenticated, getSubjectId } from './NavService';
+import { useEffect, useState } from 'react';
 
 const Nav = () => {
+  const [subjectId, setSubjectId] = useState(undefined);
   let innerContent = null;
+  let location = useLocation();
+
+  useEffect(() => {
+    setSubjectId(getSubjectId());
+  }, [location]);
+
   if (isAuthenticated()) {
-    <>
-      <NavLink activeClassName={styles.activeLink} to='/profile'>
-        Профіль
-      </NavLink>
-      <NavLink activeClassName={styles.activeLink} to='/lectures'>
-        Лекції
-      </NavLink>
-      <NavLink activeClassName={styles.activeLink} to='/assignments'>
-        Завдання
-      </NavLink>
-    </>;
+    innerContent = (
+      <>
+        <NavLink activeClassName={styles.activeLink} to='/profile'>
+          Профіль
+        </NavLink>
+        <NavLink activeClassName={styles.activeLink} exact to='/subjects'>
+          Предмети
+        </NavLink>
+        <NavLink
+          activeClassName={styles.activeLink}
+          exact
+          to={`/subjects/${subjectId}/lectures`}
+        >
+          Лекції
+        </NavLink>
+        <NavLink
+          activeClassName={styles.activeLink}
+          to={`/subjects/${subjectId}/assignments`}
+        >
+          Завдання
+        </NavLink>
+      </>
+    );
   } else {
     innerContent = (
       <>

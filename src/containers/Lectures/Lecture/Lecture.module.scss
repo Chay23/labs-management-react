@@ -1,0 +1,18 @@
+@import '../../../styles/global.scss';
+
+.loading {
+  margin-top: 200px;
+}
+
+.content {
+  @include globalMargin;
+}
+
+.customBtn {
+  margin: 0 0 10px 0;
+}
+
+.lectureText {
+  font-size: 1.4rem;
+  margin: 0 0 40px 0;
+}

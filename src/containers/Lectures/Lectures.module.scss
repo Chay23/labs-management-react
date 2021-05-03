@@ -1,0 +1,29 @@
+@import '../../styles/global.scss';
+
+.loading {
+  @include loadingSpinner;
+}
+
+.content {
+  @include globalMargin;
+}
+
+.lecturesList {
+  @include menuListStyle;
+}
+
+.lectureItem {
+  @include menuItemStyle;
+}
+
+.linkToLecture {
+  @include menuLink;
+}
+
+.linkToLecture:hover {
+  @include menuLinkHover;
+}
+
+.customBtn {
+  margin: 0 0 10px 0;
+}

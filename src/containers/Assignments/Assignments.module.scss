@@ -1,0 +1,29 @@
+@import '../../styles/global.scss';
+
+.loading {
+  @include loadingSpinner;
+}
+
+.content {
+  @include globalMargin;
+}
+
+.assignmentsList {
+  @include menuListStyle;
+}
+
+.assignmentItem {
+  @include menuItemStyle;
+}
+
+.linkToAssignment {
+  @include menuLink;
+}
+
+.linkToAssignment:hover {
+  @include menuLinkHover;
+}
+
+.customBtn {
+  margin: 0 0 10px 0;
+}
