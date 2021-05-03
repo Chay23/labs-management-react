@@ -1,6 +1,12 @@
 import styles from './Registration.module.scss';
 import { useEffect, useState } from 'react';
-import { getGroups, register, setToken } from './RegistrationService';
+import {
+  getGroups,
+  register,
+  setToken,
+  setUserId,
+  setUserStatus,
+} from './RegistrationService';
 import Select from 'react-select';
 import Spinner from '../../components/Spinner/Spinner';
 import { useHistory } from 'react-router';
@@ -83,26 +89,30 @@ const Registration = () => {
     return true;
   };
 
-  const handleToken = async () => {
+  const handleUserData = async () => {
     setLoading(true);
     let data = {
       email: formData.email,
       password: formData.password,
     };
-    setToken(data).catch(error => handleShowError(error));
+    setToken(data)
+      .then(() => setUserId())
+      .then(() => setUserStatus())
+      .then(() => history.push('/subjects'))
+      .catch(error => handleShowError(error));
   };
 
   const handleRegistration = async () => {
     setLoading(true);
     await register(formData)
       .then(() => {
-        handleToken();
-        history.push('/subjects');
+        handleUserData();
+        setLoading(false);
       })
       .catch(error => {
         handleShowError(error);
+        setLoading(false);
       });
-    setLoading(false);
   };
 
   const handleSubmit = async e => {

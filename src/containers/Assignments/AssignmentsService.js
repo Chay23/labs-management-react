@@ -12,3 +12,7 @@ export const getSubjectTitle = async () => {
     .get(`/subjects/${subject_id}`)
     .then(response => response.data.title);
 };
+
+export const verifySubjectId = () => {
+  return getCookie('subject_id') ? true : false;
+};

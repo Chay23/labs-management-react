@@ -1,7 +1,7 @@
 import styles from './Login.module.scss';
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { login } from './LoginService';
+import { login, setUserId, setUserStatus } from './LoginService';
 import Spinner from '../../components/Spinner/Spinner';
 
 const Login = () => {
@@ -45,10 +45,12 @@ const Login = () => {
       password: formData.password,
     };
     login(data)
-      .then(response => {
+      .then(() => setUserId())
+      .then(() => setUserStatus())
+      .then(() => {
         setLoading(false);
-        history.push('/subjects');
       })
+      .then(() => history.push('/subjects'))
       .catch(error => {
         setFormData({ ...formData, password: '' });
         handleError(error);
