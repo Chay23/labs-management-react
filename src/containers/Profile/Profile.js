@@ -16,19 +16,35 @@ const Profile = () => {
   const [usePasswordChangeModal, setShowPasswordChangeModal] = useState(false);
   const [loading, setLoading] = useState(true);
   const [state, setState] = useState(0);
+  const [alert, setShowAlert] = useState({
+    message: '',
+    type: '',
+  });
 
   useEffect(() => {
     setLoading(true);
-    getUserData().then(data => {
-      setProfileData({
-        email: data.user.email,
-        first_name: data.first_name,
-        last_name: data.last_name,
-        group: data.group.name,
+    getUserData()
+      .then(data => {
+        setProfileData({
+          email: data.user.email,
+          first_name: data.first_name,
+          last_name: data.last_name,
+          group: data.group.name,
+        });
+        setLoading(false);
+      })
+      .catch(() => {
+        handleShowAlert();
+        setLoading(false);
       });
-      setLoading(false);
-    });
   }, [state]);
+
+  const handleShowAlert = () => {
+    setShowAlert({
+      message: 'Виникла помилка. Спробуйте пізніше',
+      type: 'danger',
+    });
+  };
 
   const handleUpdateModalShow = () => {
     setShowUpdateModal(prevState => !prevState);
@@ -50,23 +66,29 @@ const Profile = () => {
         </div>
       ) : (
         <div className={styles.content}>
-          <p>Електронна скринька: {profileData.email}</p>
-          <p>Ім'я: {profileData.first_name}</p>
-          <p>Прізвище: {profileData.last_name}</p>
-          <p>Група: {profileData.group}</p>
-          <button
-            className='btn btn-outline-dark'
-            onClick={handleUpdateModalShow}
-          >
-            Редагувати профіль
-          </button>
-          <button
-            className='btn btn-outline-dark'
-            onClick={handlePasswordChangeModalShow}
-          >
-            Змінити пароль
-          </button>
-
+          {alert ? (
+            <div className={'alert alert-' + alert.type} role='alert'>
+              {alert.message}
+            </div>
+          ) : null}
+          <div className={styles.profileContent}>
+            <p>Електронна скринька: {profileData.email}</p>
+            <p>Ім'я: {profileData.first_name}</p>
+            <p>Прізвище: {profileData.last_name}</p>
+            <p>Група: {profileData.group}</p>
+            <button
+              className='btn btn-outline-dark'
+              onClick={handleUpdateModalShow}
+            >
+              Редагувати профіль
+            </button>
+            <button
+              className='btn btn-outline-dark'
+              onClick={handlePasswordChangeModalShow}
+            >
+              Змінити пароль
+            </button>
+          </div>
           <UpdateProfile
             show={useUpdateModal}
             handleModalShow={handleUpdateModalShow}
