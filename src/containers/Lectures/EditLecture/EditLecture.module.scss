@@ -1,0 +1,26 @@
+@import '../../../styles//global.scss';
+
+.loading {
+  margin-top: 200px;
+}
+
+.content {
+  @include globalMargin;
+  height: 100vh;
+  p {
+    margin: 10px 0 2px 0;
+  }
+}
+
+.formSection {
+  @include sectionStyle;
+}
+
+.customBackBtn {
+  margin-bottom: 10px;
+}
+
+.customSubmitBtn {
+  margin-top: 20px;
+  width: 115px;
+}

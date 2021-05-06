@@ -40,8 +40,13 @@ const Subjects = () => {
         handleShowAlert(error);
         setLoading(false);
       });
-    return localStorage.removeItem('msg');
+    return cleanLocalStorage();
   }, [is_instructor, state]);
+
+  const cleanLocalStorage = () => {
+    localStorage.removeItem('msg');
+    localStorage.removeItem('subject_id');
+  };
 
   const handleShowAlert = error => {
     if (error !== undefined) {

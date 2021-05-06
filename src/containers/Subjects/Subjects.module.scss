@@ -15,11 +15,8 @@
 .subjectItem {
   @include menuItemStyle;
   position: relative;
-}
-
-.subjectcTitle {
-  a {
-    font-weight: bolder;
+  button {
+    margin: 10px;
   }
 }
 
@@ -39,10 +36,6 @@
   max-height: 20px;
   transition: max-height 2s;
   cursor: pointer;
-
-  button{
-    margin: 10px;
-  }
 }
 
 .subjectDescription:hover {

@@ -1,56 +1,46 @@
-import styles from './CreateSubject.module.scss';
-import { useEffect, useState } from 'react';
+import styles from './CreateLecture.module.scss';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import Select from 'react-select';
-import { createSubject, getGroups, getUserId } from './CreateSubjectService';
 import Spinner from '../../../components/Spinner/Spinner';
+import { getUserId, createLecture, getSubjectId } from './CreateLectureService';
+import Editor from '@ckeditor/ckeditor5-build-classic';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
 
-const CreateSubject = () => {
-  const [groups, setGroups] = useState([]);
-  const [subjectData, setSubjectData] = useState({
+const CreateLecture = () => {
+  const [lectureData, setLectureData] = useState({
     title: '',
-    description: '',
+    text: '',
     created_by: null,
-    group: [],
+    subject: null,
   });
   const [alert, setAlert] = useState({
     message: '',
     type: '',
   });
   const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    const handleGetGroups = () => {
-      getGroups()
-        .then(response => setGroups(response.data))
-        .catch(error => handleShowErrorAlert(error));
-    };
-
-    handleGetGroups();
-  }, []);
+  const subject_id = getSubjectId();
+  const user_id = getUserId();
 
   const handleChange = e => {
-    setSubjectData({ ...subjectData, [e.target.name]: e.target.value });
+    setLectureData({ ...lectureData, [e.target.name]: e.target.value });
   };
 
-  const handleGroupsSelected = groups => {
-    const group_list = [];
-    groups.map(group => group_list.push(group.value));
-    setSubjectData({ ...subjectData, group: group_list });
+  const handleChangeEditor = (event, editor) => {
+    const data = editor.getData();
+    setLectureData({ ...lectureData, text: data });
   };
 
   const handleSubmit = e => {
     e.preventDefault();
-    const user_id = getUserId();
     let data = {
-      title: subjectData.title,
-      description: subjectData.description,
+      title: lectureData.title,
+      text: lectureData.text,
       created_by: user_id,
-      group: subjectData.group,
+      subject: subject_id,
     };
     setLoading(true);
-    createSubject(data)
-      .then(response => {
+    createLecture(data)
+      .then(() => {
         handleShowSuccessAlert();
         setLoading(false);
       })
@@ -81,11 +71,6 @@ const CreateSubject = () => {
     }
   };
 
-  const groupOptions =
-    groups.length > 0
-      ? groups.map(group => ({ label: group.name, value: group.id }))
-      : null;
-
   return (
     <div className={styles.content}>
       {alert ? (
@@ -94,7 +79,7 @@ const CreateSubject = () => {
         </div>
       ) : null}
       <Link
-        to='/subjects'
+        to={`/subjects/${subject_id}/lectures`}
         className={styles.customBackBtn + ' btn btn-outline-dark'}
       >
         Назад
@@ -103,28 +88,15 @@ const CreateSubject = () => {
       <hr />
       <div className={styles.formSection}>
         <form onSubmit={handleSubmit}>
-          <p>Назва предмету</p>
+          <p>Заголовок лекції</p>
           <input
             className='form-control'
-            value={subjectData.title}
+            value={lectureData.title}
             onChange={handleChange}
             name='title'
           ></input>
-          <p>Опис предмету (512 символів)</p>
-          <textarea
-            className='form-control'
-            value={subjectData.description}
-            onChange={handleChange}
-            name='description'
-            maxLength={512}
-          ></textarea>
-          <p>Групи</p>
-          <Select
-            isMulti
-            options={groupOptions}
-            onChange={handleGroupsSelected}
-            placeholder='Пошук груп'
-          />
+          <p>Текст лекції</p>
+          <CKEditor editor={Editor} onChange={handleChangeEditor} />
           <button className={styles.customSubmitBtn + ' btn btn-outline-dark'}>
             {loading ? (
               <div>
@@ -140,4 +112,4 @@ const CreateSubject = () => {
   );
 };
 
-export default CreateSubject;
+export default CreateLecture;

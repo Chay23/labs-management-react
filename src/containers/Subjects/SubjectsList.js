@@ -14,6 +14,7 @@ export const SubjectsList = ({ subjects, is_instructor, setState }) => {
       setShowModal(prevState => !prevState);
     }
   };
+  
   return (
     <>
       {subjects.length > 0 ? (
@@ -36,15 +37,15 @@ export const SubjectsList = ({ subjects, is_instructor, setState }) => {
                 <i className={`${styles.arrow} ${styles.down}`}></i>
               </p>
               <p>{subject.description}</p>
-              {is_instructor ? (
+            </div>
+            {is_instructor ? (
+              <>
                 <Link
                   to={`/subjects/${subject.id}/edit`}
                   className={'btn btn-primary'}
                 >
                   Редагувати
                 </Link>
-              ) : null}
-              {is_instructor ? (
                 <button
                   className={'btn btn-danger'}
                   onClick={handleModalShow}
@@ -52,8 +53,8 @@ export const SubjectsList = ({ subjects, is_instructor, setState }) => {
                 >
                   Видалити
                 </button>
-              ) : null}
-            </div>
+              </>
+            ) : null}
           </div>
         ))
       ) : (
