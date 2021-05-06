@@ -1,9 +1,13 @@
 import styles from './Assignments.module.scss';
 import { useEffect, useState } from 'react';
 import Spinner from '../../components/Spinner/Spinner';
-import { getAssignments, getSubjectTitle } from './AssignmentsService';
+import {
+  getAssignments,
+  getSubjectTitle,
+  verifySubjectId,
+} from './AssignmentsService';
 import AssignmentsList from './AssignmentsList';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 const Assignments = () => {
   const [assignments, setAssignments] = useState([]);
@@ -13,20 +17,26 @@ const Assignments = () => {
     message: '',
     type: '',
   });
+  const history = useHistory();
 
   useEffect(() => {
-    setLoading(true);
-    getAssignments()
-      .then(response => {
-        setAssignments(response.data);
-        getSubjectTitle().then(title => setSubjectTitle(title));
-        setLoading(false);
-      })
-      .catch(() => {
-        handleShowAlert();
-        setLoading(false);
-      });
-  }, []);
+    if (verifySubjectId()) {
+      setLoading(true);
+      getAssignments()
+        .then(response => {
+          setAssignments(response.data);
+          getSubjectTitle().then(title => setSubjectTitle(title));
+          setLoading(false);
+        })
+        .catch(() => {
+          handleShowAlert();
+          setLoading(false);
+        });
+    } else {
+      localStorage.setItem('msg', 'Виберіть будь ласка предмет');
+      history.push('/subjects');
+    }
+  }, [history]);
 
   const handleShowAlert = () => {
     setAlert({ message: 'Виникла помилка. Спробуйте пізніше', type: 'danger' });

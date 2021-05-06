@@ -51,7 +51,6 @@ const UpdateProfile = props => {
         flushData();
       }}
     >
-      {/* <ChangePassword onCancel={handlePasswordChangeShow} /> */}
       <div className={styles.updateContent}>
         {alert.message ? (
           <div className={'alert alert-' + alert.type} role='alert'>

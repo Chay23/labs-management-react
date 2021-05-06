@@ -9,6 +9,10 @@ import Lectures from './containers/Lectures/Lectures';
 import Lecture from './containers/Lectures/Lecture/Lecture';
 import Assignments from './containers/Assignments/Assignments';
 import Assignment from './containers/Assignments/Assignment/Assignment';
+import CreateSubject from './containers/Subjects/CreateSubject/CreateSubject';
+import EditSubject from './containers/Subjects/EditSubject/EditSubject';
+import CreateLecture from './containers/Lectures/CreateLecture/CreateLecture';
+import EditLecture from './containers/Lectures/EditLecture/EditLecture';
 
 function App() {
   return (
@@ -18,15 +22,31 @@ function App() {
         <Route path='/registration' exact component={Registration} />
         <Route path='/profile' exact component={Profile} />
         <Route path='/subjects' exact component={Subjects} />
+        <Route path='/subjects/create' exact component={CreateSubject} />
+        <Route
+          path='/subjects/:subject_id/edit'
+          exact
+          component={EditSubject}
+        />
         <Route
           path='/subjects/:subject_id/lectures'
           exact
           component={Lectures}
         />
         <Route
+          path='/subjects/:subject_id/lectures/create'
+          exact
+          component={CreateLecture}
+        />
+        <Route
           path='/subjects/:subject_id/lectures/:lecture_id'
           exact
           component={Lecture}
+        />
+        <Route
+          path='/subjects/:subject_id/lectures/:lecture_id/edit'
+          exact
+          component={EditLecture}
         />
         <Route
           path='/subjects/:subject_id/assignments'

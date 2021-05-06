@@ -1,6 +1,7 @@
 import customAxios from '../../customAxios';
 import axios from 'axios';
 import { baseUrl } from '../../config';
+import { getCookie } from '../../guards/GetCookie';
 
 export const setUserId = async () => {
   await customAxios.get('/auth/users/me').then(response => {
@@ -13,5 +14,13 @@ export const login = async data => {
   await axios.post(baseUrl + '/auth/token/login/', data).then(response => {
     const token = response.data.auth_token;
     document.cookie = `token=${token}; path=/`;
+  });
+};
+
+export const setUserStatus = async () => {
+  let id = getCookie('user_id');
+  await customAxios.get(`/users/${id}`).then(response => {
+    let status = response.data.is_instructor;
+    document.cookie = `is_instructor=${status}; path=/`;
   });
 };

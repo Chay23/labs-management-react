@@ -5,9 +5,11 @@
 }
 
 .content {
-  @include sectionStyle;
   @include globalMargin;
+}
 
+.profileContent {
+  @include sectionStyle;
   button {
     margin: 10px 20px 0 0;
   }
