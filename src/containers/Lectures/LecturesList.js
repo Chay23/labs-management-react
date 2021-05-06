@@ -2,7 +2,7 @@ import styles from './Lectures.module.scss';
 import { Link } from 'react-router-dom';
 import { getCookie } from '../../guards/GetCookie';
 import ConfirmDelete from './ConfirmDelete/ConfirmDelete';
-import { useState } from 'react/cjs/react.development';
+import { useState } from 'react';
 
 export const LecturesList = ({ lectures, is_instructor, setState }) => {
   const [showModal, setShowModal] = useState(false);
