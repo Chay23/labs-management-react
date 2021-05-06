@@ -71,6 +71,8 @@ const Profile = () => {
               {alert.message}
             </div>
           ) : null}
+          <h2>Профіль</h2>
+          <hr />
           <div className={styles.profileContent}>
             <p>Електронна скринька: {profileData.email}</p>
             <p>Ім'я: {profileData.first_name}</p>

@@ -9,6 +9,8 @@ import Lectures from './containers/Lectures/Lectures';
 import Lecture from './containers/Lectures/Lecture/Lecture';
 import Assignments from './containers/Assignments/Assignments';
 import Assignment from './containers/Assignments/Assignment/Assignment';
+import CreateSubject from './containers/Subjects/CreateSubject/CreateSubject';
+import EditSubject from './containers/Subjects/EditSubject/EditSubject';
 
 function App() {
   return (
@@ -18,6 +20,12 @@ function App() {
         <Route path='/registration' exact component={Registration} />
         <Route path='/profile' exact component={Profile} />
         <Route path='/subjects' exact component={Subjects} />
+        <Route path='/subjects/create' exact component={CreateSubject} />
+        <Route
+          path='/subjects/:subject_id/edit'
+          exact
+          component={EditSubject}
+        />
         <Route
           path='/subjects/:subject_id/lectures'
           exact

@@ -14,6 +14,7 @@
 
 .subjectItem {
   @include menuItemStyle;
+  position: relative;
 }
 
 .subjectcTitle {
@@ -38,6 +39,10 @@
   max-height: 20px;
   transition: max-height 2s;
   cursor: pointer;
+
+  button{
+    margin: 10px;
+  }
 }
 
 .subjectDescription:hover {
