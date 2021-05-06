@@ -1,5 +1,5 @@
 import styles from './ConfirmDelete.module.scss';
-import { useState } from 'react/cjs/react.development';
+import { useState } from 'react';
 import Modal from '../../../components/Modal/Modal';
 import { deleteSubject } from './ConfirmDeleteService';
 

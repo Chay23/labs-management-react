@@ -1,15 +1,22 @@
-FROM node:13.12.0-alpine
+FROM node:alpine as build
 
 WORKDIR /app
 
 ENV PATH /app/node_modules/.bin:$PATH
 ENV REACT_APP_API_URL=https://labs-management.herokuapp.com/api/v1
-ENV GENERATE_SOURCEMAP = false
 
 COPY package.json ./
 COPY package-lock.json ./
-RUN npm install --silent
+RUN npm ci --silent
 
 COPY . ./
+RUN npm run build
 
-CMD ["npm", "run", "start"]
+FROM nginx:alpine
+COPY --from=build /app/build /usr/share/nginx/html
+
+
+COPY nginx/nginx.conf /etc/nginx/conf.d/default.conf
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
