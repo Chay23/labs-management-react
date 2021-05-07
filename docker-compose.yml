@@ -14,3 +14,4 @@ services:
     environment:
       - CHOKIDAR_USEPOLLING=true
       - REACT_APP_API_URL=https://labs-management.herokuapp.com/api/v1
+      - PORT=80
