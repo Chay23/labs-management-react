@@ -24,6 +24,9 @@ $sectionColor: rgb(236, 236, 236);
   border-radius: 5px;
   padding: 10px 20px;
   box-shadow: 5px 2px 5px black;
+  h3 {
+    margin: 2px 0;
+  }
 }
 
 @mixin menuLink {

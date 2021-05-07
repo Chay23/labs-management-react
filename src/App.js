@@ -13,6 +13,8 @@ import CreateSubject from './containers/Subjects/CreateSubject/CreateSubject';
 import EditSubject from './containers/Subjects/EditSubject/EditSubject';
 import CreateLecture from './containers/Lectures/CreateLecture/CreateLecture';
 import EditLecture from './containers/Lectures/EditLecture/EditLecture';
+import EditAssignment from './containers/Assignments/EditAssignment/EditAssignment';
+import CreateAssignment from './containers/Assignments/CreateAssignment/CreateAssignment';
 
 function App() {
   return (
@@ -54,9 +56,19 @@ function App() {
           component={Assignments}
         />
         <Route
+          path='/subjects/:subject_id/assignments/create'
+          exact
+          component={CreateAssignment}
+        />
+        <Route
           path='/subjects/:subject_id/assignments/:assignment_id'
           exact
           component={Assignment}
+        />
+        <Route
+          path='/subjects/:subject_id/assignments/:assignment_id/edit'
+          exact
+          component={EditAssignment}
         />
         <Redirect from='/' to='/login' />
       </Switch>
