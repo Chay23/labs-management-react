@@ -32,6 +32,7 @@ $sectionColor: rgb(236, 236, 236);
 @mixin menuLink {
   font-weight: lighter;
   color: black;
+  width: fit-content;
 }
 
 @mixin menuLinkHover {

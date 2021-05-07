@@ -15,6 +15,7 @@ import CreateLecture from './containers/Lectures/CreateLecture/CreateLecture';
 import EditLecture from './containers/Lectures/EditLecture/EditLecture';
 import EditAssignment from './containers/Assignments/EditAssignment/EditAssignment';
 import CreateAssignment from './containers/Assignments/CreateAssignment/CreateAssignment';
+import Submissions from './containers/Submissions/Submissions';
 
 function App() {
   return (
@@ -69,6 +70,11 @@ function App() {
           path='/subjects/:subject_id/assignments/:assignment_id/edit'
           exact
           component={EditAssignment}
+        />
+        <Route
+          path='/subjects/:subject_id/assignments/:assignment_id/submissions/'
+          exact
+          component={Submissions}
         />
         <Redirect from='/' to='/login' />
       </Switch>

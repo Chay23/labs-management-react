@@ -95,7 +95,7 @@ const EditAssignment = () => {
             </div>
           ) : null}
           <Link
-            to={`/subjects/${subject_id}/lectures`}
+            to={`/subjects/${subject_id}/assignments`}
             className={styles.customBackBtn + ' btn btn-outline-dark'}
           >
             Назад

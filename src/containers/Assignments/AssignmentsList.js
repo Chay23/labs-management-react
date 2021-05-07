@@ -44,6 +44,12 @@ const AssignmentsList = ({ assignments, is_instructor, setState }) => {
                 >
                   Видалити
                 </button>
+                <Link
+                  to={`/subjects/${subject_id}/assignments/${assignment.id}/submissions`}
+                  className='btn btn-outline-dark'
+                >
+                  Виконанні завдання
+                </Link>
               </>
             ) : null}
           </div>
