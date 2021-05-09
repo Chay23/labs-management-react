@@ -1,17 +1,21 @@
-import styles from './CreateLecture.module.scss';
+import styles from './CreateAssignment.module.scss';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Spinner from '../../../components/Spinner/Spinner';
-import { getUserId, createLecture, getSubjectId } from './CreateLectureService';
+import {
+  getUserId,
+  createLecture,
+  getSubjectId,
+} from './CreateAssignmentService';
 import Editor from '@ckeditor/ckeditor5-build-classic';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 
-const CreateLecture = () => {
-  const [lectureData, setLectureData] = useState({
+const CreateAssignment = () => {
+  const [assignmentData, setAssignmentData] = useState({
     title: '',
-    text: '',
-    created_by: null,
+    description: '',
     subject: null,
+    created_by: null,
   });
   const [alert, setAlert] = useState({
     message: '',
@@ -22,19 +26,19 @@ const CreateLecture = () => {
   const user_id = getUserId();
 
   const handleChange = e => {
-    setLectureData({ ...lectureData, [e.target.name]: e.target.value });
+    setAssignmentData({ ...assignmentData, [e.target.name]: e.target.value });
   };
 
   const handleChangeEditor = (event, editor) => {
     const data = editor.getData();
-    setLectureData({ ...lectureData, text: data });
+    setAssignmentData({ ...assignmentData, description: data });
   };
 
   const handleSubmit = e => {
     e.preventDefault();
     let data = {
-      title: lectureData.title,
-      text: lectureData.text,
+      title: assignmentData.title,
+      description: assignmentData.description,
       created_by: user_id,
       subject: subject_id,
     };
@@ -79,23 +83,23 @@ const CreateLecture = () => {
         </div>
       ) : null}
       <Link
-        to={`/subjects/${subject_id}/lectures`}
+        to={`/subjects/${subject_id}/assignments`}
         className={styles.customBackBtn + ' btn btn-outline-dark'}
       >
         Назад
       </Link>
-      <h3>Створити нову лекцію</h3>
+      <h3>Створити нове завдання</h3>
       <hr />
       <div className={styles.formSection}>
         <form onSubmit={handleSubmit}>
-          <p>Заголовок лекції</p>
+          <p>Заголовок завдання</p>
           <input
             className='form-control'
-            value={lectureData.title}
+            value={assignmentData.title}
             onChange={handleChange}
             name='title'
           ></input>
-          <p>Текст лекції</p>
+          <p>Текст завдання</p>
           <CKEditor editor={Editor} onChange={handleChangeEditor} />
           <button className={styles.customSubmitBtn + ' btn btn-outline-dark'}>
             {loading ? (
@@ -112,4 +116,4 @@ const CreateLecture = () => {
   );
 };
 
-export default CreateLecture;
+export default CreateAssignment;

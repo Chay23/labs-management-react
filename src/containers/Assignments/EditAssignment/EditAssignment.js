@@ -1,18 +1,18 @@
-import styles from './EditLecture.module.scss';
+import styles from './EditAssignment.module.scss';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import Spinner from '../../../components/Spinner/Spinner';
-import { getLectureData, editLecture } from './EditLecureService';
+import { getAssignmentData, editAssignment } from './EditAssignmentService';
 import Editor from '@ckeditor/ckeditor5-build-classic';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 
-const EditLecture = () => {
-  const [lectureData, setLectureData] = useState({
+const EditAssignment = () => {
+  const [assignmentData, setAssignmentData] = useState({
     title: '',
-    text: '',
-    created_by: null,
+    description: '',
     subject: null,
+    created_by: null,
   });
   const [loading, setLoading] = useState(false);
   const [sending, setSending] = useState(false);
@@ -20,36 +20,36 @@ const EditLecture = () => {
     message: '',
     type: '',
   });
-  const { lecture_id, subject_id } = useParams();
+  const { assignment_id, subject_id } = useParams();
 
   useEffect(() => {
     setLoading(true);
-    getLectureData(lecture_id).then(response => {
+    getAssignmentData(assignment_id).then(response => {
       const data = response.data;
-      setLectureData({
+      setAssignmentData({
         title: data.title,
-        text: data.text,
+        description: data.description,
         created_by: data.created_by,
         subject: data.subject,
       });
       setLoading(false);
     });
-  }, [lecture_id]);
+  }, [assignment_id]);
 
   const handleChangeTitle = e => {
     const title = e.target.value;
-    setLectureData({ ...lectureData, title: title });
+    setAssignmentData({ ...assignmentData, title: title });
   };
 
-  const handleChangeText = (event, editor) => {
+  const handleChangeDescription = (event, editor) => {
     const data = editor.getData();
-    setLectureData({ ...lectureData, text: data });
+    setAssignmentData({ ...assignmentData, description: data });
   };
 
   const handleSubmit = e => {
     e.preventDefault();
     setSending(true);
-    editLecture(lecture_id, lectureData)
+    editAssignment(assignment_id, assignmentData)
       .then(() => {
         handleShowSuccessAlert();
         setSending(false);
@@ -95,26 +95,26 @@ const EditLecture = () => {
             </div>
           ) : null}
           <Link
-            to={`/subjects/${subject_id}/lectures`}
+            to={`/subjects/${subject_id}/assignments`}
             className={styles.customBackBtn + ' btn btn-outline-dark'}
           >
             Назад
           </Link>
-          <h2>Редагувати лекцію</h2>
+          <h2>Редагувати завдання</h2>
           <hr />
           <div className={styles.formSection}>
             <form onSubmit={handleSubmit}>
-              <p>Заголовок лекції</p>
+              <p>Заголовок завдання</p>
               <input
                 className='form-control'
-                value={lectureData.title}
+                value={assignmentData.title}
                 onChange={handleChangeTitle}
               ></input>
-              <p>Текст лекції</p>
+              <p>Текст завдання</p>
               <CKEditor
                 editor={Editor}
-                data={lectureData.text}
-                onChange={handleChangeText}
+                data={assignmentData.description}
+                onChange={handleChangeDescription}
               />
               <button
                 className={styles.customSubmitBtn + ' btn btn-outline-dark'}
@@ -129,4 +129,4 @@ const EditLecture = () => {
   );
 };
 
-export default EditLecture;
+export default EditAssignment;

@@ -10,6 +10,7 @@ import {
 import Select from 'react-select';
 import Spinner from '../../components/Spinner/Spinner';
 import { useHistory } from 'react-router';
+import { isAuthenticated } from '../../guards/isAuthenticated';
 
 const Registration = () => {
   const [formData, setFormData] = useState({
@@ -27,6 +28,12 @@ const Registration = () => {
     type: '',
   });
   let history = useHistory();
+
+  useEffect(() => {
+    if (isAuthenticated()) {
+      history.push('/subjects');
+    }
+  });
 
   const handleChange = e => {
     setFormData({ ...formData, [e.target.name]: e.target.value });

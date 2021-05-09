@@ -1,6 +1,7 @@
 import styles from './Nav.module.scss';
 import { NavLink, useLocation } from 'react-router-dom';
-import { isAuthenticated, getSubjectId } from './NavService';
+import { getSubjectId, handleLogout } from './NavService';
+import { isAuthenticated } from '../../guards/isAuthenticated';
 import { useEffect, useState } from 'react';
 
 const Nav = () => {
@@ -33,6 +34,13 @@ const Nav = () => {
           to={`/subjects/${subjectId}/assignments`}
         >
           Завдання
+        </NavLink>
+        <NavLink
+          className={styles.logoutBtn}
+          onClick={handleLogout}
+          to='/login'
+        >
+          Вийти
         </NavLink>
       </>
     );

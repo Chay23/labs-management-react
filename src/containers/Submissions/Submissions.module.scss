@@ -1,0 +1,28 @@
+@import '../../styles/global.scss';
+
+.loading {
+  @include loadingSpinner;
+}
+
+.content {
+  @include globalMargin;
+}
+
+.submissionsList {
+  @include menuListStyle;
+}
+
+.submissionsItem {
+  display: grid;
+  grid-template-columns: 1fr 150px;
+  grid-gap: 10px;
+  border: 1px black solid;
+  border-radius: 5px;
+  a {
+    margin: 10px 15px;
+  }
+}
+
+.customBtn {
+  margin: 0 0 10px 0;
+}
