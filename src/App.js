@@ -16,6 +16,8 @@ import EditLecture from './containers/Lectures/EditLecture/EditLecture';
 import EditAssignment from './containers/Assignments/EditAssignment/EditAssignment';
 import CreateAssignment from './containers/Assignments/CreateAssignment/CreateAssignment';
 import Submissions from './containers/Submissions/Submissions';
+import ProtectedRoute from './guards/ProtectedRoute';
+import NotFound404 from './components/NotFound404/NotFound404';
 
 function App() {
   return (
@@ -23,60 +25,65 @@ function App() {
       <Switch>
         <Route path='/login' exact component={Login} />
         <Route path='/registration' exact component={Registration} />
-        <Route path='/profile' exact component={Profile} />
-        <Route path='/subjects' exact component={Subjects} />
-        <Route path='/subjects/create' exact component={CreateSubject} />
-        <Route
+        <ProtectedRoute path='/profile' exact component={Profile} />
+        <ProtectedRoute path='/subjects' exact component={Subjects} />
+        <ProtectedRoute
+          path='/subjects/create'
+          exact
+          component={CreateSubject}
+        />
+        <ProtectedRoute
           path='/subjects/:subject_id/edit'
           exact
           component={EditSubject}
         />
-        <Route
+        <ProtectedRoute
           path='/subjects/:subject_id/lectures'
           exact
           component={Lectures}
         />
-        <Route
+        <ProtectedRoute
           path='/subjects/:subject_id/lectures/create'
           exact
           component={CreateLecture}
         />
-        <Route
+        <ProtectedRoute
           path='/subjects/:subject_id/lectures/:lecture_id'
           exact
           component={Lecture}
         />
-        <Route
+        <ProtectedRoute
           path='/subjects/:subject_id/lectures/:lecture_id/edit'
           exact
           component={EditLecture}
         />
-        <Route
+        <ProtectedRoute
           path='/subjects/:subject_id/assignments'
           exact
           component={Assignments}
         />
-        <Route
+        <ProtectedRoute
           path='/subjects/:subject_id/assignments/create'
           exact
           component={CreateAssignment}
         />
-        <Route
+        <ProtectedRoute
           path='/subjects/:subject_id/assignments/:assignment_id'
           exact
           component={Assignment}
         />
-        <Route
+        <ProtectedRoute
           path='/subjects/:subject_id/assignments/:assignment_id/edit'
           exact
           component={EditAssignment}
         />
-        <Route
+        <ProtectedRoute
           path='/subjects/:subject_id/assignments/:assignment_id/submissions/'
           exact
           component={Submissions}
         />
-        <Redirect from='/' to='/login' />
+        <Redirect from='/' exact to='/login' />
+        <Route component={NotFound404} />
       </Switch>
     </Layout>
   );

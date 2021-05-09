@@ -1,8 +1,9 @@
 import styles from './Login.module.scss';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { login, setUserId, setUserStatus } from './LoginService';
 import Spinner from '../../components/Spinner/Spinner';
+import { isAuthenticated } from '../../guards/isAuthenticated';
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -16,6 +17,12 @@ const Login = () => {
     type: '',
   });
   let history = useHistory();
+
+  useEffect(() => {
+    if (isAuthenticated()) {
+      history.push('/subjects');
+    }
+  });
 
   const handleChange = e => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
