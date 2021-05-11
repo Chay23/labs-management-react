@@ -22,7 +22,7 @@ const Assignments = () => {
     type: '',
   });
   const [currentPage, setCurrentPage] = useState(1);
-  const [assignmentsPerPage] = useState(4);
+  const [assignmentsPerPage] = useState(5);
   const history = useHistory();
   const is_instructor = getUserStatus();
   const subject_id = getSubjectId();
@@ -79,12 +79,14 @@ const Assignments = () => {
             Назад
           </Link>
           <h2>Список завдань: {subjectTitle}</h2>
-          <Link
-            to={`/subjects/${subject_id}/assignments/create`}
-            className='btn btn-outline-dark'
-          >
-            Створити завдання
-          </Link>
+          {is_instructor ? (
+            <Link
+              to={`/subjects/${subject_id}/assignments/create`}
+              className='btn btn-outline-dark'
+            >
+              Створити завдання
+            </Link>
+          ) : null}
           <hr />
           <div className={styles.assignmentsList}>
             <AssignmentsList

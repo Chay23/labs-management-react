@@ -19,7 +19,7 @@ const Subjects = () => {
   });
   const [state, setState] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
-  const [subjectsPerPage] = useState(4);
+  const [subjectsPerPage] = useState(5);
   const is_instructor = getUserStatus();
 
   useEffect(() => {

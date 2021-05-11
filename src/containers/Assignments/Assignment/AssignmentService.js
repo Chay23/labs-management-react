@@ -14,3 +14,12 @@ export const sendSubmission = async data => {
     },
   });
 };
+
+export const getUserStatus = () => {
+  const is_instructor = getCookie('is_instructor');
+  if (is_instructor === 'true') {
+    return true;
+  } else {
+    return false;
+  }
+};

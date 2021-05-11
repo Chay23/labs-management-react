@@ -21,4 +21,11 @@ export const verifySubjectId = () => {
   return getCookie('subject_id') ? true : false;
 };
 
-export const getUserStatus = () => getCookie('is_instructor');
+export const getUserStatus = () => {
+  const is_instructor = getCookie('is_instructor');
+  if (is_instructor === 'true') {
+    return true;
+  } else {
+    return false;
+  }
+};

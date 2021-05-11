@@ -2,7 +2,12 @@ import styles from './Assignment.module.scss';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import Spinner from '../../../components/Spinner/Spinner';
-import { getAssignment, getUserId, sendSubmission } from './AssignmentService';
+import {
+  getAssignment,
+  getUserId,
+  sendSubmission,
+  getUserStatus,
+} from './AssignmentService';
 import EditorComponent from './EditorComponent';
 import { fileExtensions } from './FileExtensions';
 import { Link } from 'react-router-dom';
@@ -26,6 +31,7 @@ const Assignment = () => {
     type: '',
   });
   const { subject_id, assignment_id } = useParams();
+  const is_instructor = getUserStatus();
 
   useEffect(() => {
     setLoading(true);
@@ -223,19 +229,21 @@ const Assignment = () => {
               setLanguage={setLanguage}
             />
           </div>
-          <button
-            className={styles.customBtn + ' btn btn-outline-dark'}
-            onClick={handleSubmit}
-            disabled={disabled}
-          >
-            {sending ? (
-              <div className={styles.sending}>
-                <Spinner height={2.5} width={2.5} />
-              </div>
-            ) : (
-              'Надіслати'
-            )}
-          </button>
+          {is_instructor ? null : (
+            <button
+              className={styles.customBtn + ' btn btn-outline-dark'}
+              onClick={handleSubmit}
+              disabled={disabled}
+            >
+              {sending ? (
+                <div className={styles.sending}>
+                  <Spinner height={2.5} width={2.5} />
+                </div>
+              ) : (
+                'Надіслати'
+              )}
+            </button>
+          )}
         </div>
       )}
     </>

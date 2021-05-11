@@ -22,7 +22,7 @@ const Lectures = () => {
   });
   const [state, setState] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
-  const [lecturesPerPage] = useState(4);
+  const [lecturesPerPage] = useState(5);
   const history = useHistory();
   const subject_id = getSubjectId();
   const is_instructor = getUserStatus();
@@ -80,12 +80,14 @@ const Lectures = () => {
             Назад
           </Link>
           <h2>Список лекцій: {subjectTitle}</h2>
-          <Link
-            to={`/subjects/${subject_id}/lectures/create`}
-            className='btn btn-outline-dark'
-          >
-            Створити лекцію
-          </Link>
+          {is_instructor ? (
+            <Link
+              to={`/subjects/${subject_id}/lectures/create`}
+              className='btn btn-outline-dark'
+            >
+              Створити лекцію
+            </Link>
+          ) : null}
           <hr />
           <div className={styles.lecturesList}>
             <LecturesList

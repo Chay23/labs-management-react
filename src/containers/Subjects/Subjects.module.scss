@@ -26,9 +26,7 @@
 }
 
 .linkToSubject:hover {
-  color: black;
-  text-decoration: none;
-  font-weight: 700;
+  @include menuLinkHover;
 }
 
 .subjectDescription {
