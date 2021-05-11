@@ -8,6 +8,7 @@ import {
 import { SubjectsList } from './SubjectsList';
 import Spinner from '../../components/Spinner/Spinner';
 import { Link } from 'react-router-dom';
+import Pagination from '../../components/Pagination/Pagination';
 
 const Subjects = () => {
   const [subjects, setSubjects] = useState([]);
@@ -17,6 +18,8 @@ const Subjects = () => {
     type: '',
   });
   const [state, setState] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [subjectsPerPage] = useState(4);
   const is_instructor = getUserStatus();
 
   useEffect(() => {
@@ -59,6 +62,15 @@ const Subjects = () => {
     }
   };
 
+  const paginate = pageNumber => setCurrentPage(pageNumber);
+
+  const indexOfLastSubject = currentPage * subjectsPerPage;
+  const indexOfFirstSubject = indexOfLastSubject - subjectsPerPage;
+  const currentSubjects = subjects.slice(
+    indexOfFirstSubject,
+    indexOfLastSubject
+  );
+
   return (
     <>
       {loading ? (
@@ -83,11 +95,22 @@ const Subjects = () => {
           <hr />
           <div className={styles.subjectsList}>
             <SubjectsList
-              subjects={subjects}
+              subjects={currentSubjects}
               is_instructor={is_instructor}
               setState={setState}
             />
           </div>
+          {subjects.length > subjectsPerPage ? (
+            <>
+              <hr />
+              <Pagination
+                elementsPerPage={subjectsPerPage}
+                totalElements={subjects.length}
+                paginate={paginate}
+                currentPage={currentPage}
+              />
+            </>
+          ) : null}
         </div>
       )}
     </>

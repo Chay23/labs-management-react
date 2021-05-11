@@ -1,4 +1,5 @@
-.customBtn {
-    margin: 10px 10px 10px 0;
-  }
-  
+@import '../../../styles/global.scss';
+
+.content {
+  @include confirmDeleteStyle;
+}

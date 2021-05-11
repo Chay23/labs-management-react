@@ -10,6 +10,7 @@ import {
 } from './AssignmentsService';
 import AssignmentsList from './AssignmentsList';
 import { Link, useHistory } from 'react-router-dom';
+import Pagination from '../../components/Pagination/Pagination';
 
 const Assignments = () => {
   const [assignments, setAssignments] = useState([]);
@@ -20,6 +21,8 @@ const Assignments = () => {
     message: '',
     type: '',
   });
+  const [currentPage, setCurrentPage] = useState(1);
+  const [assignmentsPerPage] = useState(4);
   const history = useHistory();
   const is_instructor = getUserStatus();
   const subject_id = getSubjectId();
@@ -46,6 +49,15 @@ const Assignments = () => {
   const handleShowAlert = () => {
     setAlert({ message: 'Виникла помилка. Спробуйте пізніше', type: 'danger' });
   };
+
+  const paginate = pageNumber => setCurrentPage(pageNumber);
+
+  const indexOfLastSubject = currentPage * assignmentsPerPage;
+  const indexOfFirstSubject = indexOfLastSubject - assignmentsPerPage;
+  const currentAssignments = assignments.slice(
+    indexOfFirstSubject,
+    indexOfLastSubject
+  );
 
   return (
     <>
@@ -76,11 +88,22 @@ const Assignments = () => {
           <hr />
           <div className={styles.assignmentsList}>
             <AssignmentsList
-              assignments={assignments}
+              assignments={currentAssignments}
               is_instructor={is_instructor}
               setState={setState}
             />
           </div>
+          {assignments.length > assignmentsPerPage ? (
+            <>
+              <hr />
+              <Pagination
+                elementsPerPage={assignmentsPerPage}
+                totalElements={assignments.length}
+                paginate={paginate}
+                currentPage={currentPage}
+              />
+            </>
+          ) : null}
         </div>
       )}
     </>

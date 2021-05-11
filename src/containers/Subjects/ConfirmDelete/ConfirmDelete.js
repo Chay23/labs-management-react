@@ -30,7 +30,7 @@ const ConfirmDelete = ({ show, modalClosed, setState }) => {
 
   return (
     <Modal show={show} modalClosed={modalClosed}>
-      <div>
+      <div className={styles.content}>
         {alert ? (
           <div className={'alert alert-' + alert.type} role='alert'>
             {alert.message}

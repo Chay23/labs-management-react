@@ -22,10 +22,13 @@ const CreateSubject = () => {
   useEffect(() => {
     const handleGetGroups = () => {
       getGroups()
-        .then(response => setGroups(response.data))
+        .then(response => {
+          setGroups(response.data);
+          setLoading(false);
+        })
         .catch(error => handleShowErrorAlert(error));
     };
-
+    setLoading(true);
     handleGetGroups();
   }, []);
 
@@ -69,10 +72,19 @@ const CreateSubject = () => {
 
   const handleShowErrorAlert = error => {
     if (error.response) {
-      setAlert({
-        message: 'Невірно введені дані',
-        type: 'danger',
-      });
+      let response = JSON.parse(error.response.request.response)
+        .non_field_errors;
+      if (response !== undefined) {
+        setAlert({
+          message: response,
+          type: 'danger',
+        });
+      } else {
+        setAlert({
+          message: 'Невірно введені дані',
+          type: 'danger',
+        });
+      }
     } else if (error.request) {
       setAlert({
         message: 'Виникла помилка',
@@ -87,56 +99,66 @@ const CreateSubject = () => {
       : null;
 
   return (
-    <div className={styles.content}>
-      {alert ? (
-        <div className={'alert alert-' + alert.type} role='alert'>
-          {alert.message}
+    <>
+      {loading ? (
+        <div className={styles.loading}>
+          <Spinner />
         </div>
-      ) : null}
-      <Link
-        to='/subjects'
-        className={styles.customBackBtn + ' btn btn-outline-dark'}
-      >
-        Назад
-      </Link>
-      <h3>Створити новий предмет</h3>
-      <hr />
-      <div className={styles.formSection}>
-        <form onSubmit={handleSubmit}>
-          <p>Назва предмету</p>
-          <input
-            className='form-control'
-            value={subjectData.title}
-            onChange={handleChange}
-            name='title'
-          ></input>
-          <p>Опис предмету (512 символів)</p>
-          <textarea
-            className='form-control'
-            value={subjectData.description}
-            onChange={handleChange}
-            name='description'
-            maxLength={512}
-          ></textarea>
-          <p>Групи</p>
-          <Select
-            isMulti
-            options={groupOptions}
-            onChange={handleGroupsSelected}
-            placeholder='Пошук груп'
-          />
-          <button className={styles.customSubmitBtn + ' btn btn-outline-dark'}>
-            {loading ? (
-              <div>
-                <Spinner height={2.5} width={2.5} />
-              </div>
-            ) : (
-              'Створити'
-            )}
-          </button>
-        </form>
-      </div>
-    </div>
+      ) : (
+        <div className={styles.content}>
+          {alert ? (
+            <div className={'alert alert-' + alert.type} role='alert'>
+              {alert.message}
+            </div>
+          ) : null}
+          <Link
+            to='/subjects'
+            className={styles.customBackBtn + ' btn btn-outline-dark'}
+          >
+            Назад
+          </Link>
+          <h3>Створити новий предмет</h3>
+          <hr />
+          <div className={styles.formSection}>
+            <form onSubmit={handleSubmit}>
+              <p>Назва предмету</p>
+              <input
+                className='form-control'
+                value={subjectData.title}
+                onChange={handleChange}
+                name='title'
+              ></input>
+              <p>Опис предмету (512 символів)</p>
+              <textarea
+                className='form-control'
+                value={subjectData.description}
+                onChange={handleChange}
+                name='description'
+                maxLength={512}
+              ></textarea>
+              <p>Групи</p>
+              <Select
+                isMulti
+                options={groupOptions}
+                onChange={handleGroupsSelected}
+                placeholder='Пошук груп'
+              />
+              <button
+                className={styles.customSubmitBtn + ' btn btn-outline-dark'}
+              >
+                {loading ? (
+                  <div>
+                    <Spinner height={2.5} width={2.5} />
+                  </div>
+                ) : (
+                  'Створити'
+                )}
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 
