@@ -46,7 +46,7 @@ const AssignmentsList = ({ assignments, is_instructor, setState }) => {
                 </button>
                 <Link
                   to={`/subjects/${subject_id}/assignments/${assignment.id}/submissions`}
-                  className='btn btn-outline-dark'
+                  className='btn btn-info '
                 >
                   Виконанні завдання
                 </Link>

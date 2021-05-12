@@ -79,13 +79,13 @@ const Profile = () => {
             <p>Прізвище: {profileData.last_name}</p>
             <p>Група: {profileData.group}</p>
             <button
-              className='btn btn-outline-dark'
+              className='btn btn-outline-success'
               onClick={handleUpdateModalShow}
             >
               Редагувати профіль
             </button>
             <button
-              className='btn btn-outline-dark'
+              className='btn btn-outline-info'
               onClick={handlePasswordChangeModalShow}
             >
               Змінити пароль

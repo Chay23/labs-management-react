@@ -23,3 +23,17 @@ export const getUserStatus = () => {
     return false;
   }
 };
+
+export const getAssignmentFeedback = assignment_id => {
+  const user_id = getUserId();
+  return customAxios.get(
+    `/submissions/assignment/${assignment_id}/user/${user_id}/`
+  );
+};
+
+export const editFile = (data, user_id, assignment_id) => {
+  return customAxios.put(
+    `/submissions/assignment/${assignment_id}/user/${user_id}/`,
+    data
+  );
+};

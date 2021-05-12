@@ -16,6 +16,12 @@ export const getSubjectTitle = async () => {
 export const getAttachedFileName = fileName => {
   fileName = decodeURIComponent(fileName);
   fileName = fileName.match(/[-\s\w\d а-яА-яІЇії]*.[a-z]*$/);
-  fileName = fileName[0];
-  return fileName;
+  return fileName[0];
+};
+
+export const sendFeedback = (data, user_id, assignment_id) => {
+  return customAxios.put(
+    `/submissions/assignment/${assignment_id}/user/${user_id}/`,
+    data
+  );
 };

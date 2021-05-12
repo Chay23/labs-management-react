@@ -38,8 +38,8 @@ $sectionColor: rgb(236, 236, 236);
 @mixin menuLinkHover {
   color: black;
   text-decoration: none;
-  text-stroke: 1px black;
-  -webkit-text-stroke: 1px black;
+  text-stroke: 0.7px black;
+  -webkit-text-stroke: 0.7px black;
 }
 
 @mixin loadingSpinner {

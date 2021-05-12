@@ -97,7 +97,7 @@ const CreateLecture = () => {
           ></input>
           <p>Текст лекції</p>
           <CKEditor editor={Editor} onChange={handleChangeEditor} />
-          <button className={styles.customSubmitBtn + ' btn btn-outline-dark'}>
+          <button className={styles.customSubmitBtn + ' btn btn-success'}>
             {loading ? (
               <div>
                 <Spinner height={2.5} width={2.5} />

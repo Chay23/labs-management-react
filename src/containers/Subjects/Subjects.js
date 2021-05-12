@@ -88,7 +88,7 @@ const Subjects = () => {
             {is_instructor ? 'Створені вами предмети' : 'Доступні предмети'}
           </h2>
           {is_instructor ? (
-            <Link to='/subjects/create' className='btn btn-outline-dark'>
+            <Link to='/subjects/create' className='btn btn-success'>
               Створити новий предмет
             </Link>
           ) : null}

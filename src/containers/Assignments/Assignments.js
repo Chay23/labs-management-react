@@ -82,7 +82,7 @@ const Assignments = () => {
           {is_instructor ? (
             <Link
               to={`/subjects/${subject_id}/assignments/create`}
-              className='btn btn-outline-dark'
+              className='btn btn-success'
             >
               Створити завдання
             </Link>

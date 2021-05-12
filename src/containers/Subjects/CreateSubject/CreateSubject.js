@@ -144,7 +144,7 @@ const CreateSubject = () => {
                 placeholder='Пошук груп'
               />
               <button
-                className={styles.customSubmitBtn + ' btn btn-outline-dark'}
+                className={styles.customSubmitBtn + ' btn btn-success'}
               >
                 {loading ? (
                   <div>

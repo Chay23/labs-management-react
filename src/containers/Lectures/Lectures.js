@@ -83,7 +83,7 @@ const Lectures = () => {
           {is_instructor ? (
             <Link
               to={`/subjects/${subject_id}/lectures/create`}
-              className='btn btn-outline-dark'
+              className='btn btn-success'
             >
               Створити лекцію
             </Link>

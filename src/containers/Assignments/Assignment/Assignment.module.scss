@@ -49,6 +49,9 @@
   border-radius: 5px;
   box-shadow: 5px 2px 5px black;
   margin: 10px 0;
+  p {
+    margin: 0;
+  }
 }
 
 .inputFileSection {
@@ -63,6 +66,13 @@
   overflow: hidden;
   margin: 10px 0;
   transition: height 2s;
+}
+
+.submissionSection {
+  @include sectionStyle;
+  p{
+    margin: 10px 0 0 0;
+  }
 }
 
 .arrow {

@@ -84,7 +84,7 @@ const CreateAssignment = () => {
       ) : null}
       <Link
         to={`/subjects/${subject_id}/assignments`}
-        className={styles.customBackBtn + ' btn btn-outline-dark'}
+        className={styles.customBackBtn + ' btn btn-success'}
       >
         Назад
       </Link>
@@ -101,7 +101,7 @@ const CreateAssignment = () => {
           ></input>
           <p>Текст завдання</p>
           <CKEditor editor={Editor} onChange={handleChangeEditor} />
-          <button className={styles.customSubmitBtn + ' btn btn-outline-dark'}>
+          <button className={styles.customSubmitBtn + ' btn btn-success'}>
             {loading ? (
               <div>
                 <Spinner height={2.5} width={2.5} />

@@ -13,16 +13,21 @@
 }
 
 .submissionsItem {
-  display: grid;
-  grid-template-columns: 1fr 150px;
-  grid-gap: 10px;
-  border: 1px black solid;
-  border-radius: 5px;
+  @include sectionStyle;
   a {
-    margin: 10px 15px;
+    margin: 20px 15px;
   }
 }
 
-.customBtn {
+.customBtn{
   margin: 0 0 10px 0;
+}
+
+.deleteBtn {
+  margin: 0 0 10px 0;
+  float: right;
+}
+
+.sendBtn {
+  margin: 10px 0 0 0;
 }

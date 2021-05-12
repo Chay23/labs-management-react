@@ -84,6 +84,7 @@ const Submissions = () => {
             <SubmissionsList
               submissions={submissionsData}
               setState={setState}
+              setAlert={setAlert}
             />
           </div>
         </div>

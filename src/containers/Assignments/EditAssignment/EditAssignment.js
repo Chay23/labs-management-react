@@ -117,7 +117,7 @@ const EditAssignment = () => {
                 onChange={handleChangeDescription}
               />
               <button
-                className={styles.customSubmitBtn + ' btn btn-outline-dark'}
+                className={styles.customSubmitBtn + ' btn btn-primary'}
               >
                 {sending ? <Spinner height={2.5} width={2.5} /> : 'Редагувати'}
               </button>

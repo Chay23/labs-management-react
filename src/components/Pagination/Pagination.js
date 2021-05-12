@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import styles from './Pagination.module.scss';
 
 const Pagination = ({
@@ -18,12 +17,12 @@ const Pagination = ({
       <div className={styles.pagination}>
         {pageNumbers.map(number => (
           <div key={number} className={styles.pageItem}>
-            <Link
+            <p
               onClick={() => paginate(number)}
               className={number === currentPage ? styles.active : null}
             >
               {number}
-            </Link>
+            </p>
           </div>
         ))}
       </div>

@@ -3,8 +3,9 @@ import { useState } from 'react';
 import { baseUrl } from '../../config';
 import { getAttachedFileName } from './SubmissionsService';
 import ConfirmDelete from './ConfirmDelete/ConfirmDelele';
+import SubmisisonFeedback from './SubmissionFeedback';
 
-const SubmissionsList = ({ submissions, setState }) => {
+const SubmissionsList = ({ submissions, setState, setAlert }) => {
   const [showModal, setShowModal] = useState(false);
 
   const handleModalShow = e => {
@@ -24,20 +25,24 @@ const SubmissionsList = ({ submissions, setState }) => {
               className={styles.linkToSubmission}
               href={
                 baseUrl +
-                `/submissions/file/${getAttachedFileName(
-                  submission.attached_file
-                )}}`
+                `/submissions/file/${getAttachedFileName(submission.attached_file)}/`
               }
             >
               {getAttachedFileName(submission.attached_file)}
             </a>
             <button
-              className={'btn btn-danger'}
+              className={styles.deleteBtn + ' btn btn-danger'}
               onClick={handleModalShow}
               name={submission.id}
             >
               Видалити
             </button>
+            <hr />
+            <SubmisisonFeedback
+              prevFeedback={submission.feedback}
+              user_id={submission.created_by}
+              setAlert={setAlert}
+            />
           </div>
         ))
       ) : (
