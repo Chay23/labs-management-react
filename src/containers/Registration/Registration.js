@@ -76,6 +76,20 @@ const Registration = () => {
     }
   };
 
+  const validateEmail = () => {
+    const email = formData.email;
+    const re =
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (!re.test(String(email).toLowerCase())) {
+      setAlert({
+        message: 'Невалідний формат електронної адреси',
+        type: 'danger',
+      });
+      return false;
+    }
+    return true;
+  };
+
   const confirmPassword = () => {
     if (formData.password !== formData.passwordConfirm) {
       setAlert({
@@ -124,7 +138,7 @@ const Registration = () => {
 
   const handleSubmit = async e => {
     e.preventDefault();
-    if (confirmPassword()) {
+    if (validateEmail() && confirmPassword()) {
       handleRegistration();
     } else {
     }
@@ -144,7 +158,7 @@ const Registration = () => {
       ) : null}
       <h1>Реєстрація</h1>
       <form onSubmit={handleSubmit}>
-        <p>Електронна пошта</p>
+        <p>Електронна адреса</p>
         <input className='form-control' name='email' onChange={handleChange} />
         <p>Пароль</p>
         <input

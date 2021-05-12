@@ -84,7 +84,7 @@ const CreateAssignment = () => {
       ) : null}
       <Link
         to={`/subjects/${subject_id}/assignments`}
-        className={styles.customBackBtn + ' btn btn-success'}
+        className={styles.customBackBtn + ' btn btn-outline-dark'}
       >
         Назад
       </Link>

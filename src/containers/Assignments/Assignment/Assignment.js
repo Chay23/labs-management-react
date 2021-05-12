@@ -99,11 +99,13 @@ const Assignment = () => {
         message: 'Невірне розширення файлу',
         type: 'danger',
       });
+      setDisabled(true);
     } else {
       setAlert({
         message: '',
         type: '',
       });
+      setDisabled(false);
     }
   };
 
@@ -159,6 +161,7 @@ const Assignment = () => {
       .then(() => {
         setSending(false);
         handleShowSuccessAlert();
+        setState(prevState => prevState + 1);
       })
       .catch(() => {
         setSending(false);
@@ -271,7 +274,7 @@ const Assignment = () => {
           </div>
           {is_instructor ? null : showSubmission ? (
             <button
-              className={styles.customBtn + ' btn btn-outline-warning'}
+              className={styles.customBtn + ' btn btn-warning'}
               onClick={handleEdit}
               disabled={disabled}
             >
@@ -285,7 +288,7 @@ const Assignment = () => {
             </button>
           ) : (
             <button
-              className={styles.customBtn + ' btn btn-outline-success'}
+              className={styles.customBtn + ' btn btn-success'}
               onClick={handleSubmit}
               disabled={disabled}
             >

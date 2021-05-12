@@ -92,6 +92,7 @@ const Login = () => {
           type={show ? 'text' : 'password'}
           onChange={handleChange}
           placeholder='Пароль'
+          autoComplete='off'
         />
         <div className={styles.show}>
           <label>
