@@ -31,9 +31,9 @@ export const getAssignmentFeedback = assignment_id => {
   );
 };
 
-export const editFile = (data, user_id, assignment_id) => {
-  return customAxios.put(
-    `/submissions/assignment/${assignment_id}/user/${user_id}/`,
+export const editFile = (data, submission_id) => {
+  return customAxios.patch(
+    `/submissions/${submission_id}/`,
     data
   );
 };

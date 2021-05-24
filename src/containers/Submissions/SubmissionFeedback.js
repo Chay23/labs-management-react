@@ -1,20 +1,19 @@
 import styles from './Submissions.module.scss';
 import { useState } from 'react';
 import { sendFeedback } from './SubmissionsService';
-import { useParams } from 'react-router';
 
-const SubmisisonFeedback = ({ prevFeedback, user_id, setAlert }) => {
+const SubmisisonFeedback = ({ prevFeedback, user_id, submission_id, setAlert }) => {
   const [feedback, setFeedback] = useState(prevFeedback);
-  const { assignment_id } = useParams();
 
   const handleFeedbackChange = e => {
     const feedbackValue = e.target.value;
     setFeedback(feedbackValue);
   };
 
+
   const handleSendFeedback = () => {
     const data = { feedback: feedback };
-    sendFeedback(data, user_id, assignment_id)
+    sendFeedback(data, submission_id)
       .then(response => {
         setAlert({ message: 'Відгук надіслано', type: 'success' });
       })

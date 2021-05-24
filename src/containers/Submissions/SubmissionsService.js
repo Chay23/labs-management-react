@@ -19,9 +19,6 @@ export const getAttachedFileName = fileName => {
   return fileName[0];
 };
 
-export const sendFeedback = (data, user_id, assignment_id) => {
-  return customAxios.put(
-    `/submissions/assignment/${assignment_id}/user/${user_id}/`,
-    data
-  );
+export const sendFeedback = (data, assignment_id) => {
+  return customAxios.patch(`/submissions/${assignment_id}/`, data);
 };

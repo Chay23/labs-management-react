@@ -171,7 +171,6 @@ const Assignment = () => {
 
   const handleEdit = e => {
     e.preventDefault();
-    const user_id = getUserId();
     let formData = new FormData();
     if (useFile.editor) {
       let file = handleCreateFileEditor();
@@ -181,11 +180,13 @@ const Assignment = () => {
       formData.append('attached_file', inputFile);
     }
     setSending(true);
-    editFile(formData, user_id, assignment_id)
+    editFile(formData, submission.id)
       .then(() => {
         setSending(false);
         handleShowSuccessAlert();
         setState(prevState => prevState + 1);
+        setDisabled(true);
+        setUseFile({ input: false, editor: false });
       })
       .catch(() => {
         setSending(false);
